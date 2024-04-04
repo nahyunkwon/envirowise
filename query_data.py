@@ -1,13 +1,14 @@
 import argparse
 from dataclasses import dataclass
 from langchain.vectorstores.chroma import Chroma
-from langchain.embeddings import OpenAIEmbeddings
+# from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.chat_models import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 
 CHROMA_PATH = "chroma"
 
-PROMPT_TEMPLATE = """
+PROMPT_TEMPLATE = """ 
 Answer the question based only on the following context:
 
 {context}

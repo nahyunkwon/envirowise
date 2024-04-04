@@ -1,13 +1,17 @@
-from langchain.document_loaders import DirectoryLoader
+# from langchain.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import DirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
-from langchain.embeddings import OpenAIEmbeddings
+# from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.embeddings import OpenAIEmbeddings
 from langchain.vectorstores.chroma import Chroma
 import os
 import shutil
+import time
+start_time = time.time()
 
 CHROMA_PATH = "chroma"
-DATA_PATH = "data/books"
+DATA_PATH = "data/papers"
 
 
 def main():
@@ -21,7 +25,7 @@ def generate_data_store():
 
 
 def load_documents():
-    loader = DirectoryLoader(DATA_PATH, glob="*.md")
+    loader = DirectoryLoader(DATA_PATH, glob="*.pdf")
     documents = loader.load()
     return documents
 
@@ -36,7 +40,7 @@ def split_text(documents: list[Document]):
     chunks = text_splitter.split_documents(documents)
     print(f"Split {len(documents)} documents into {len(chunks)} chunks.")
 
-    document = chunks[10]
+    document = chunks[0]
     print(document.page_content)
     print(document.metadata)
 
@@ -58,3 +62,4 @@ def save_to_chroma(chunks: list[Document]):
 
 if __name__ == "__main__":
     main()
+    print("--- %s seconds ---" % (time.time() - start_time))
