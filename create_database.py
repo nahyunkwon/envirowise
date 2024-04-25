@@ -63,3 +63,4 @@ def save_to_chroma(chunks: list[Document]):
 if __name__ == "__main__":
     main()
     print("--- %s seconds ---" % (time.time() - start_time))
+    print("--- %s seconds ---" % (time.time() - start_time) / 60.0)
